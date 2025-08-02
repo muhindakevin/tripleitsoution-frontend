@@ -23,14 +23,14 @@ export default function AuthLayout({
                     playsInline
                     className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
                 >
-                    <source src="/videos/wave.mp4" type="video/mp4" />
+                    <source src="/bg.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
                 <div className="w-full  flex flex-col md:flex-row bg-transparent shadow-lg rounded-xl overflow-hidden relative z-10">
-                        <div style={{ width: "100%" }}>
-                            {children}
-                        </div>
+                    <div style={{ width: "100%" }}>
+                        {children}
                     </div>
+                </div>
             </div>
         </SessionProvider>
     );

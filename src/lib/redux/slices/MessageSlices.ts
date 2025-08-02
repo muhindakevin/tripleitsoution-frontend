@@ -4,9 +4,16 @@ const messageApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         sendMessage: builder.mutation({
             query: (data) => ({
-                url: "messages/send",
+                url: "message/sendMessage",
                 method: "POST",
                 body: data,
+            }),
+        }),
+
+        getAllMessages: builder.query({
+            query: () => ({
+                url: "message",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -27,8 +34,11 @@ const messageApi = apiSlice.injectEndpoints({
 
         deleteMessage: builder.mutation({
             query: (messageId) => ({
-                url: `messages/${messageId}`,
+                url: `message/${messageId}/delete`,
                 method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                },
             }),
         }),
     }),
@@ -37,5 +47,6 @@ const messageApi = apiSlice.injectEndpoints({
 export const {
     useSendMessageMutation,
     useGetMessagesQuery,
+    useGetAllMessagesQuery,
     useDeleteMessageMutation,
 } = messageApi;

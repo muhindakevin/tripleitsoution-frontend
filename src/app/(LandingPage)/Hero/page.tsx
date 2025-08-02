@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
                         </p>
                         <button
                             onClick={scrollToContact}
-                            className="bg-gradient-to-r from-blue-600 to-orange-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform inline-flex items-center gap-2"
+                            className="bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform inline-flex items-center gap-2"
                         >
                             Get Started Today
                             <span className="text-xl">🚀</span>

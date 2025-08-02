@@ -65,8 +65,7 @@ export default function SignUp() {
             const result = await registerUser({
                 username: formData.username,
                 email: formData.email,
-                password: formData.password,
-                role: 'STAFF' // Set role to STAFF for all new users
+                password: formData.password
             }).unwrap();
 
             setSuccessMessage('🎉 Welcome! Your account has been created successfully. You can now sign in and start your journey with us!');
@@ -347,7 +346,7 @@ export default function SignUp() {
                         <div className="relative animate-fadeInRight delay-1200">
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
                             <Image
-                                src="/images/yacht.png"
+                                src="/logo.jpeg"
                                 alt="Yacht Illustration"
                                 width={400}
                                 height={300}
@@ -360,121 +359,121 @@ export default function SignUp() {
 
             {/* Custom CSS for animations */}
             <style jsx>{`
-        @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
+                @keyframes fadeInLeft {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
 
-        @keyframes fadeInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
+                @keyframes fadeInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
 
-        @keyframes slideInDown {
-          from {
-            opacity: 0;
-            transform: translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+                @keyframes slideInDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
 
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+                @keyframes slideInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
 
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
 
-        .animate-fadeInLeft {
-          animation: fadeInLeft 0.8s ease-out;
-        }
+                .animate-fadeInLeft {
+                    animation: fadeInLeft 0.8s ease-out;
+                }
 
-        .animate-fadeInRight {
-          animation: fadeInRight 0.8s ease-out;
-        }
+                .animate-fadeInRight {
+                    animation: fadeInRight 0.8s ease-out;
+                }
 
-        .animate-slideInDown {
-          animation: slideInDown 0.6s ease-out;
-        }
+                .animate-slideInDown {
+                    animation: slideInDown 0.6s ease-out;
+                }
 
-        .animate-slideInUp {
-          animation: slideInUp 0.6s ease-out;
-        }
+                .animate-slideInUp {
+                    animation: slideInUp 0.6s ease-out;
+                }
 
-        .animate-slideInRight {
-          animation: slideInRight 0.6s ease-out;
-        }
+                .animate-slideInRight {
+                    animation: slideInRight 0.6s ease-out;
+                }
 
-        .delay-200 {
-          animation-delay: 0.2s;
-        }
+                .delay-200 {
+                    animation-delay: 0.2s;
+                }
 
-        .delay-300 {
-          animation-delay: 0.3s;
-        }
+                .delay-300 {
+                    animation-delay: 0.3s;
+                }
 
-        .delay-400 {
-          animation-delay: 0.4s;
-        }
+                .delay-400 {
+                    animation-delay: 0.4s;
+                }
 
-        .delay-500 {
-          animation-delay: 0.5s;
-        }
+                .delay-500 {
+                    animation-delay: 0.5s;
+                }
 
-        .delay-600 {
-          animation-delay: 0.6s;
-        }
+                .delay-600 {
+                    animation-delay: 0.6s;
+                }
 
-        .delay-700 {
-          animation-delay: 0.7s;
-        }
+                .delay-700 {
+                    animation-delay: 0.7s;
+                }
 
-        .delay-800 {
-          animation-delay: 0.8s;
-        }
+                .delay-800 {
+                    animation-delay: 0.8s;
+                }
 
-        .delay-900 {
-          animation-delay: 0.9s;
-        }
+                .delay-900 {
+                    animation-delay: 0.9s;
+                }
 
-        .delay-1000 {
-          animation-delay: 1s;
-        }
+                .delay-1000 {
+                    animation-delay: 1s;
+                }
 
-        .delay-1200 {
-          animation-delay: 1.2s;
-        }
-      `}</style>
+                .delay-1200 {
+                    animation-delay: 1.2s;
+                }
+            `}</style>
         </div>
     );
 }

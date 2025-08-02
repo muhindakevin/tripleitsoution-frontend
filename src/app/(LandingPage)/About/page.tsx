@@ -108,7 +108,7 @@ const About: React.FC = () => {
     ];
 
     return (
-        <section id="about" className="py-20 bg-gradient-to-br from-purple-600 via-blue-600 to-purple-800 text-white relative overflow-hidden">
+        <section id="about" className="py-20 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>

@@ -1,6 +1,6 @@
-// components/Contact.tsx
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
+import { useSendMessageMutation } from '@/lib/redux/slices/MessageSlices'
 
 interface FormData {
     name: string;
@@ -64,9 +64,11 @@ const Contact: React.FC = () => {
         subject: '',
         message: ''
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
+
+    // Redux mutation hook
+    const [sendMessage, { isLoading: isSubmitting, error, isSuccess }] = useSendMessageMutation();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -91,6 +93,28 @@ const Contact: React.FC = () => {
         };
     }, []);
 
+    // Handle success message
+    useEffect(() => {
+        if (isSuccess) {
+            alert('Thank you for your message! We will get back to you soon.');
+            // Reset form after successful submission
+            setFormData({
+                name: '',
+                email: '',
+                subject: '',
+                message: ''
+            });
+        }
+    }, [isSuccess]);
+
+    // Handle error message
+    useEffect(() => {
+        if (error) {
+            console.error('Error sending message:', error);
+            alert('There was an error sending your message. Please try again.');
+        }
+    }, [error]);
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -101,23 +125,20 @@ const Contact: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
 
         try {
-            // Simulate form submission
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Create the payload according to your Thunder Client format
+            const messagePayload = {
+                name: formData.name,
+                email: formData.email,
+                message: `Subject: ${formData.subject}\n\n${formData.message}`
+            };
 
-            alert('Thank you for your message! We will get back to you soon.');
-            setFormData({
-                name: '',
-                email: '',
-                subject: '',
-                message: ''
-            });
-        } catch (error) {
-            alert('There was an error sending your message. Please try again.');
-        } finally {
-            setIsSubmitting(false);
+            // Send the message using Redux mutation
+            await sendMessage(messagePayload).unwrap();
+        } catch (err) {
+            // Error is handled by the useEffect above
+            console.error('Failed to send message:', err);
         }
     };
 
@@ -214,7 +235,7 @@ const Contact: React.FC = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 px-6 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                    className="w-full bg-blue-500 text-white py-3 px-6 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                                 >
                                     {isSubmitting ? (
                                         <span className="flex items-center justify-center">

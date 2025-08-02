@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
+import { useGetAllMessagesQuery, useDeleteMessageMutation } from '@/lib/redux/slices/MessageSlices'
 
 interface Message {
     _id: string;
@@ -9,6 +10,7 @@ interface Message {
     message: string;
     createdAt: string;
     updatedAt: string;
+    __v?: number;
 }
 
 interface ReplyModalProps {
@@ -163,8 +165,6 @@ const ReplyModal = ({ message, isOpen, onClose, onSend }: ReplyModalProps) => {
 
 const AdminMessagesPage = () => {
     const { data: session } = useSession();
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [loading, setLoading] = useState(true);
     const [selectedMessages, setSelectedMessages] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -176,63 +176,24 @@ const AdminMessagesPage = () => {
 
     const messagesPerPage = 10;
 
-    // Sample data - replace with your actual API calls
-    useEffect(() => {
-        fetchMessages();
-    }, []);
+    // RTK Query hooks
+    const {
+        data: messagesResponse,
+        isLoading,
+        isError,
+        refetch
+    } = useGetAllMessagesQuery({});
 
-    const fetchMessages = async () => {
-        setLoading(true);
-        try {
-            // Replace with your actual API call
-            // const response = await fetch('/api/messages');
-            // const data = await response.json();
+    const [deleteMessage] = useDeleteMessageMutation();
 
-            // Sample data for demonstration
-            const sampleMessages: Message[] = [
-                {
-                    _id: '1',
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    message: 'Hello, I have a question about your services. Could you please provide more information about pricing and availability?',
-                    createdAt: new Date(Date.now() - 86400000).toISOString(),
-                    updatedAt: new Date(Date.now() - 86400000).toISOString()
-                },
-                {
-                    _id: '2',
-                    name: 'Sarah Smith',
-                    email: 'sarah.smith@example.com',
-                    message: 'I\'m interested in your product catalog. Can you send me the latest brochure?',
-                    createdAt: new Date(Date.now() - 172800000).toISOString(),
-                    updatedAt: new Date(Date.now() - 172800000).toISOString()
-                },
-                {
-                    _id: '3',
-                    name: 'Mike Johnson',
-                    email: 'mike.johnson@example.com',
-                    message: 'There seems to be an issue with my recent order. The tracking number is not working.',
-                    createdAt: new Date(Date.now() - 259200000).toISOString(),
-                    updatedAt: new Date(Date.now() - 259200000).toISOString()
-                }
-            ];
-
-            setMessages(sampleMessages);
-        } catch (error) {
-            console.error('Failed to fetch messages:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const messages = messagesResponse?.messages || [];
 
     const handleDelete = async (messageId: string) => {
         if (!confirm('Are you sure you want to delete this message?')) return;
 
         setActionLoading(messageId);
         try {
-            // Replace with your actual API call
-            // await fetch(`/api/messages/${messageId}`, { method: 'DELETE' });
-
-            setMessages(prev => prev.filter(msg => msg._id !== messageId));
+            await deleteMessage(messageId).unwrap();
             setSelectedMessages(prev => prev.filter(id => id !== messageId));
         } catch (error) {
             console.error('Failed to delete message:', error);
@@ -247,12 +208,9 @@ const AdminMessagesPage = () => {
 
         setActionLoading('bulk');
         try {
-            // Replace with your actual API call
-            // await Promise.all(selectedMessages.map(id => 
-            //     fetch(`/api/messages/${id}`, { method: 'DELETE' })
-            // ));
-
-            setMessages(prev => prev.filter(msg => !selectedMessages.includes(msg._id)));
+            await Promise.all(selectedMessages.map(id =>
+                deleteMessage(id).unwrap()
+            ));
             setSelectedMessages([]);
         } catch (error) {
             console.error('Failed to delete messages:', error);
@@ -292,16 +250,16 @@ const AdminMessagesPage = () => {
 
     const handleSelectAll = () => {
         const currentMessages = getCurrentPageMessages();
-        const allSelected = currentMessages.every(msg => selectedMessages.includes(msg._id));
+        const allSelected = currentMessages.every((msg: Message) => selectedMessages.includes(msg._id));
 
         if (allSelected) {
-            setSelectedMessages(prev => prev.filter(id => !currentMessages.some(msg => msg._id === id)));
+            setSelectedMessages(prev => prev.filter(id => !currentMessages.some((msg: Message) => msg._id === id)));
         } else {
-            setSelectedMessages(prev => [...new Set([...prev, ...currentMessages.map(msg => msg._id)])]);
+            setSelectedMessages(prev => [...new Set([...prev, ...currentMessages.map((msg: Message) => msg._id)])]);
         }
     };
 
-    const filteredMessages = messages.filter(message =>
+    const filteredMessages = messages.filter((message: any) =>
         message.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         message.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
         message.message.toLowerCase().includes(searchQuery.toLowerCase())
@@ -315,12 +273,34 @@ const AdminMessagesPage = () => {
     const totalPages = Math.ceil(filteredMessages.length / messagesPerPage);
     const currentMessages = getCurrentPageMessages();
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="w-full bg-gray-50 min-h-screen">
                 <div className="px-6 py-8">
                     <div className="flex items-center justify-center h-64">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (isError) {
+        return (
+            <div className="w-full bg-gray-50 min-h-screen">
+                <div className="px-6 py-8">
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+                        <svg className="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 className="text-xl font-medium text-gray-900 mb-2">Failed to load messages</h3>
+                        <p className="text-gray-600 mb-4">An error occurred while fetching messages. Please try again.</p>
+                        <button
+                            onClick={refetch}
+                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+                        >
+                            Retry
+                        </button>
                     </div>
                 </div>
             </div>
@@ -374,7 +354,7 @@ const AdminMessagesPage = () => {
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold text-gray-900">{messages.filter(m => new Date(m.createdAt) > new Date(Date.now() - 86400000)).length}</h3>
+                                <h3 className="text-2xl font-bold text-gray-900">{messages.filter((m: Message) => new Date(m.createdAt) > new Date(Date.now() - 86400000)).length}</h3>
                                 <p className="text-gray-600 text-sm">Today's Messages</p>
                             </div>
                         </div>
@@ -420,7 +400,7 @@ const AdminMessagesPage = () => {
                             )}
 
                             <button
-                                onClick={fetchMessages}
+                                onClick={refetch}
                                 className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors font-medium"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -453,7 +433,7 @@ const AdminMessagesPage = () => {
                                             <th className="text-left py-4 px-6 w-12">
                                                 <input
                                                     type="checkbox"
-                                                    checked={currentMessages.length > 0 && currentMessages.every(msg => selectedMessages.includes(msg._id))}
+                                                    checked={currentMessages.length > 0 && currentMessages.every((msg: Message) => selectedMessages.includes(msg._id))}
                                                     onChange={handleSelectAll}
                                                     className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                                 />
@@ -465,7 +445,7 @@ const AdminMessagesPage = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-100">
-                                        {currentMessages.map((message) => (
+                                        {currentMessages.map((message: Message) => (
                                             <tr key={message._id} className="hover:bg-gray-50 transition-colors">
                                                 <td className="py-4 px-6">
                                                     <input

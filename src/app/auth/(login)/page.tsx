@@ -44,7 +44,6 @@ export default function SignIn() {
         e.preventDefault();
         setIsLoading(true);
 
-        // Basic validation
         if (!formData.email || !formData.password) {
             toast.error('Please fill in all fields', {
                 style: {
@@ -147,7 +146,7 @@ export default function SignIn() {
                     return;
                 }
 
-                const userRole = session.user.role || 'User';
+                const userRole = session.user.role || 'visitor';
                 console.log('User role:', userRole);
 
                 // Show success message
@@ -233,9 +232,14 @@ export default function SignIn() {
                     },
                 });
 
-                // Redirect after successful Google sign in
+                // Get session after Google sign in to check role
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const session = await getSession();
+                const userRole = session?.user?.role || 'visitor';
+                const redirectPath = getRedirectPath(userRole);
+
                 setTimeout(() => {
-                    router.push('/d');
+                    router.push(redirectPath);
                 }, 1500);
             }
         } catch (error) {
@@ -253,15 +257,24 @@ export default function SignIn() {
     };
 
     const getRedirectPath = (role: string): string => {
-        switch (role) {
-            case 'ADMIN':
-                return '/Admin';
-            case 'STAFF':
+        // Convert role to lowercase for consistent comparison
+        const normalizedRole = role?.toLowerCase();
+        
+        switch (normalizedRole) {
+            case 'admin':
+                return '/admin';
+            case 'staff':
                 return '/staff';
-            case 'USER':
+            case 'user':
                 return '/client';
+            case 'visitor':
+                return '/';
             default:
-                return '/dashboard';
+                // Fallback: if role is unknown, redirect based on common patterns
+                if (role === 'ADMIN') return '/admin';
+                if (role === 'STAFF') return '/staff';
+                if (role === 'USER') return '/client';
+                return '/'; // Default to home for visitors or unknown roles
         }
     };
 
@@ -411,7 +424,7 @@ export default function SignIn() {
                         <div className="relative animate-fadeInRight delay-1000">
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
                             <Image
-                                src="/images/yacht.png"
+                                src="/logo.jpeg"
                                 alt="Yacht Illustration"
                                 width={400}
                                 height={300}

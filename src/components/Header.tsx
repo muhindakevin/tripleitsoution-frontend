@@ -123,12 +123,12 @@ const Header: React.FC = () => {
                             </li>
                         </ul>
 
-                        {/* Admin Button */}
+                        {/* Account Button */}
                         <Link
-                            href="/dashboard"
-                            className="hidden md:inline-block bg-gradient-to-r from-red-600 to-orange-500 text-white px-6 py-2 rounded-full font-bold hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                            href="/auth"
+                            className="hidden md:inline-block bg-white text-black px-6 py-2 rounded-full font-bold hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                         >
-                            ADMIN
+                            ACCOUNT
                         </Link>
 
                         {/* Mobile Menu Button */}
