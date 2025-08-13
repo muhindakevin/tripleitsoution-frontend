@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
                             <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-3">
                                 <span className="text-white font-bold text-lg">T</span>
                             </div>
-                            <h3 className="text-xl font-bold">Triple IT Solution</h3>
+                            <h3 className="text-xl font-bold">Triple IT Solution Ltd</h3>
                         </div>
                         <p className="text-gray-300 mb-4 leading-relaxed">
                             Empowering businesses through innovative technology solutions.
