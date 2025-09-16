@@ -2,34 +2,33 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/dist/client/link';
 
 const Hero: React.FC = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // Array of images that will auto-change
     const images = [
         {
             src: "/images/FRONT.jpg",
             alt: "Team working on technology solutions"
         },
         {
-            src: "/images/tech-team.jpg", // Add your other images here
+            src: "/images/customer.jpeg",
             alt: "Custom software development"
         },
         {
-            src: "/images/cybersecurity.jpg",
+            src: "/images/cybersecurity.jpeg",
             alt: "Cybersecurity solutions"
         },
         {
-            src: "/images/mobile-dev.jpg",
+            src: "/images/mobile.png",
             alt: "Mobile app development"
         }
     ];
 
-    // Auto-change images every 4 seconds
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentImageIndex((prevIndex) => 
+            setCurrentImageIndex((prevIndex) =>
                 prevIndex === images.length - 1 ? 0 : prevIndex + 1
             );
         }, 4000);
@@ -45,7 +44,7 @@ const Hero: React.FC = () => {
     };
 
     return (
-        <section id="home" className="min-h-screen bg-gradient-to-br from-white to-gray-100 relative overflow-hidden flex items-center">
+        <section id="home" className="min-h-screen transparency relative overflow-hidden flex items-center">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute top-20 left-20 w-32 h-32 bg-blue-500 rounded-full blur-3xl"></div>
@@ -57,24 +56,26 @@ const Hero: React.FC = () => {
                 <div className="grid lg:grid-cols-2 gap-9 items-center">
                     {/* Text Content */}
                     <div className="animate-fade-in-up">
-                        <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent leading-tight">
+                        <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-white leading-tight">
                             Triple IT Solution Ltd
                         </h1>
                         <div className="space-y-4 mb-8">
-                            <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-medium">
+                            <p className="text-xl lg:text-2xl text-white leading-relaxed font-medium">
                                 Triple IT Solution Ltd is a modern and innovative IT company dedicated to delivering high-quality technological solutions and services.
                             </p>
-                            <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
+                            <p className="text-lg lg:text-xl text-white leading-relaxed">
                                 Our mission is to empower businesses of all sizes through reliable, customizable, and efficient digital solutions that drive growth and success.
                             </p>
                         </div>
-                        <button
-                            onClick={scrollToContact}
-                            className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform inline-flex items-center gap-2 hover:from-blue-700 hover:to-blue-800"
-                        >
-                            Get Started Today
-                            <span className="text-xl">🚀</span>
-                        </button>
+                        <Link href="/auth">
+                            <button
+                                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform inline-flex items-center gap-2 hover:from-blue-700 hover:to-blue-800"
+                            >
+                                Get Started Today
+                                <span className="text-xl">🚀</span>
+                            </button>
+                        </Link>
+
                     </div>
 
                     {/* Image Content with Auto-Changing */}
@@ -85,11 +86,10 @@ const Hero: React.FC = () => {
                                 {images.map((image, index) => (
                                     <div
                                         key={index}
-                                        className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-                                            index === currentImageIndex 
-                                                ? 'opacity-100 scale-100' 
-                                                : 'opacity-0 scale-110'
-                                        }`}
+                                        className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentImageIndex
+                                            ? 'opacity-100 scale-100'
+                                            : 'opacity-0 scale-110'
+                                            }`}
                                     >
                                         <Image
                                             src={image.src}
@@ -112,11 +112,10 @@ const Hero: React.FC = () => {
                                 <button
                                     key={index}
                                     onClick={() => setCurrentImageIndex(index)}
-                                    className={`h-2 rounded-full transition-all duration-300 ${
-                                        index === currentImageIndex 
-                                            ? 'bg-blue-600 w-8' 
-                                            : 'bg-gray-300 w-2 hover:bg-gray-400'
-                                    }`}
+                                    className={`h-2 rounded-full transition-all duration-300 ${index === currentImageIndex
+                                        ? 'bg-blue-600 w-8'
+                                        : 'bg-gray-300 w-2 hover:bg-gray-400'
+                                        }`}
                                 />
                             ))}
                         </div>
