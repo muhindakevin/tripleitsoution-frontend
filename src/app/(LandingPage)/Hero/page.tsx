@@ -60,17 +60,17 @@ const Hero: React.FC = () => {
         <section id="home" className="min-h-screen bg-hero-gradient relative overflow-hidden flex items-center">
             {/* Decorative Background */}
             <div className="absolute inset-0">
-                <div className="grid-overlay absolute inset-0 opacity-30"></div>
-                <div className="absolute -top-20 -left-32 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-blue-500/40 to-blue-200/10 blur-3xl"></div>
-                <div className="absolute bottom-0 right-0 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-purple-500/30 to-pink-300/10 blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent blur-sm"></div>
+                <div className="grid-overlay absolute inset-0 opacity-15"></div>
+                <div className="absolute -top-20 -left-32 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-blue-500/25 to-blue-200/10 blur-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-purple-500/20 to-pink-300/8 blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent blur-sm"></div>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
                 <div className="grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center">
                     {/* Text Content */}
                     <div className="space-y-8 animate-fade-in-up">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-100 shadow-glow">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-blue-100 shadow-glow backdrop-blur">
                             <Sparkles className="h-4 w-4 text-blue-200" />
                             Kigali's most trusted technology partner
                         </div>
@@ -125,8 +125,8 @@ const Hero: React.FC = () => {
 
                     {/* Image Content with Auto-Changing */}
                     <div className="relative animate-fade-in-up animation-delay-300">
-                        <div className="relative rounded-[32px] overflow-hidden shadow-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
-                            <div className="absolute inset-0 border border-white/10 rounded-[32px] pointer-events-none"></div>
+                        <div className="relative rounded-[32px] overflow-hidden shadow-2xl border border-white/10 bg-white/5">
+                            <div className="absolute inset-0 border border-white/10 rounded-[32px] pointer-events-none backdrop-blur-sm"></div>
                             <div className="aspect-[4/3] relative">
                                 {/* Auto-changing images */}
                                 {images.map((image, index) => (
@@ -149,8 +149,8 @@ const Hero: React.FC = () => {
                             </div>
 
                             {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-900/10 to-transparent"></div>
-                            <div className="absolute bottom-6 left-6 right-6 glass-panel border-white/20 bg-slate-950/40 px-6 py-4">
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-slate-900/5 to-transparent"></div>
+                            <div className="absolute bottom-6 left-6 right-6 glass-panel border-white/20 bg-slate-950/25 px-6 py-4">
                                 <p className="text-sm text-slate-100/80 leading-relaxed">
                                     "Triple IT Solution has been instrumental in modernising our digital stack. Their cloud engineers delivered in half the time we scoped."
                                 </p>

@@ -33,7 +33,7 @@ export default function RootLayout({
                 Your browser does not support the video tag.
             </video>
 
-            <div className="relative z-10 bg-black/50 min-h-screen flex flex-col">
+            <div className="relative z-10 bg-slate-950/35 min-h-screen flex flex-col backdrop-blur-sm">
                 <Header />
                 <br/><br/>
                 <main className="flex-grow">{children}</main>

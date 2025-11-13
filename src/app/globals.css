@@ -166,7 +166,7 @@ body {
   }
 
   .bg-hero-gradient {
-    background: linear-gradient(135deg, rgba(5, 10, 25, 0.85), rgba(15, 32, 65, 0.85));
+    background: linear-gradient(135deg, rgba(5, 10, 25, 0.6), rgba(15, 32, 65, 0.55));
   }
 
   .bg-section-gradient {
