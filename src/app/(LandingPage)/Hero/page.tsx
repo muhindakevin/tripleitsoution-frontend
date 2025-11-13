@@ -2,7 +2,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/dist/client/link';
+import Link from 'next/link';
+import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
 
 const Hero: React.FC = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -26,6 +27,18 @@ const Hero: React.FC = () => {
         }
     ];
 
+    const heroHighlights = [
+        "Enterprise-grade software & infrastructure",
+        "24/7 managed support with real engineers",
+        "Time-to-value measured in weeks, not months",
+    ];
+
+    const heroStats = [
+        { value: "500+", label: "Projects delivered" },
+        { value: "50+", label: "Enterprise clients" },
+        { value: "98%", label: "Customer satisfaction" },
+    ];
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) =>
@@ -44,43 +57,76 @@ const Hero: React.FC = () => {
     };
 
     return (
-        <section id="home" className="min-h-screen transparency relative overflow-hidden flex items-center">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-5">
-                <div className="absolute top-20 left-20 w-32 h-32 bg-blue-500 rounded-full blur-3xl"></div>
-                <div className="absolute top-40 right-20 w-48 h-48 bg-purple-500 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-40 left-40 w-40 h-40 bg-orange-500 rounded-full blur-3xl"></div>
+        <section id="home" className="min-h-screen bg-hero-gradient relative overflow-hidden flex items-center">
+            {/* Decorative Background */}
+            <div className="absolute inset-0">
+                <div className="grid-overlay absolute inset-0 opacity-30"></div>
+                <div className="absolute -top-20 -left-32 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-blue-500/40 to-blue-200/10 blur-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-purple-500/30 to-pink-300/10 blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent blur-sm"></div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-5 relative z-7 w-full">
-                <div className="grid lg:grid-cols-2 gap-9 items-center">
+            <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
+                <div className="grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center">
                     {/* Text Content */}
-                    <div className="animate-fade-in-up">
-                        <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-white leading-tight">
-                            Triple IT Solution Ltd
-                        </h1>
-                        <div className="space-y-4 mb-8">
-                            <p className="text-xl lg:text-2xl text-white leading-relaxed font-medium">
-                                Triple IT Solution Ltd is a modern and innovative IT company dedicated to delivering high-quality technological solutions and services.
-                            </p>
-                            <p className="text-lg lg:text-xl text-white leading-relaxed">
-                                Our mission is to empower businesses of all sizes through reliable, customizable, and efficient digital solutions that drive growth and success.
+                    <div className="space-y-8 animate-fade-in-up">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-100 shadow-glow">
+                            <Sparkles className="h-4 w-4 text-blue-200" />
+                            Kigali's most trusted technology partner
+                        </div>
+
+                        <div>
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight headline-gradient">
+                                Triple IT Solution Ltd
+                            </h1>
+                            <p className="mt-4 text-lg md:text-xl lg:text-2xl text-slate-200/90 text-balance max-w-2xl">
+                                We architect, build, and protect mission-critical digital experiences for ambitious African and global enterprises.
                             </p>
                         </div>
-                        <Link href="/auth">
-                            <button
-                                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform inline-flex items-center gap-2 hover:from-blue-700 hover:to-blue-800"
-                            >
-                                Get Started Today
-                                <span className="text-xl">🚀</span>
-                            </button>
-                        </Link>
 
+                        <div className="space-y-4">
+                            {heroHighlights.map((item, index) => (
+                                <div
+                                    key={item}
+                                    className="flex items-start gap-3 text-slate-100/90"
+                                    style={{ animationDelay: `${0.2 + index * 0.12}s` }}
+                                >
+                                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-sky-300 shrink-0" />
+                                    <span className="text-base md:text-lg leading-relaxed">{item}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <Link href="/auth">
+                                <button className="cta-gradient text-white px-8 py-4 rounded-full font-semibold text-base md:text-lg flex items-center gap-3 shadow-glow hover:shadow-[0_10px_50px_rgba(90,156,255,0.45)] transition-all duration-300 hover:-translate-y-1">
+                                    Start your project
+                                    <ArrowRight className="h-5 w-5" />
+                                </button>
+                            </Link>
+                            <button
+                                onClick={scrollToContact}
+                                className="inline-flex items-center gap-3 px-6 py-4 rounded-full border border-white/20 bg-white/5 text-slate-100 font-semibold text-base md:text-lg hover:border-white/40 hover:bg-white/10 transition-all duration-300 animated-border"
+                            >
+                                <ShieldCheck className="h-5 w-5 text-blue-200" />
+                                Book a strategy call
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-4 max-w-xl">
+                            {heroStats.map((stat) => (
+                                <div key={stat.label} className="glass-panel px-6 py-4 text-center">
+                                    <div className="text-xl md:text-2xl font-bold text-white">{stat.value}</div>
+                                    <div className="text-xs md:text-sm text-slate-200/70">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Image Content with Auto-Changing */}
                     <div className="relative animate-fade-in-up animation-delay-300">
-                        <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                        <div className="relative rounded-[32px] overflow-hidden shadow-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                            <div className="absolute inset-0 border border-white/10 rounded-[32px] pointer-events-none"></div>
                             <div className="aspect-[4/3] relative">
                                 {/* Auto-changing images */}
                                 {images.map((image, index) => (
@@ -88,7 +134,7 @@ const Hero: React.FC = () => {
                                         key={index}
                                         className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentImageIndex
                                             ? 'opacity-100 scale-100'
-                                            : 'opacity-0 scale-110'
+                                            : 'opacity-0 scale-105'
                                             }`}
                                     >
                                         <Image
@@ -103,37 +149,71 @@ const Hero: React.FC = () => {
                             </div>
 
                             {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-900/10 to-transparent"></div>
+                            <div className="absolute bottom-6 left-6 right-6 glass-panel border-white/20 bg-slate-950/40 px-6 py-4">
+                                <p className="text-sm text-slate-100/80 leading-relaxed">
+                                    "Triple IT Solution has been instrumental in modernising our digital stack. Their cloud engineers delivered in half the time we scoped."
+                                </p>
+                                <div className="mt-3 flex items-center justify-between text-xs text-slate-300/80">
+                                    <span>CTO, Regional Telecom</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+                                        Operational excellence
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Image Indicators */}
-                        <div className="flex justify-center gap-3 mt-4">
+                        <div className="flex justify-center gap-3 mt-6">
                             {images.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentImageIndex(index)}
                                     className={`h-2 rounded-full transition-all duration-300 ${index === currentImageIndex
-                                        ? 'bg-blue-600 w-8'
-                                        : 'bg-gray-300 w-2 hover:bg-gray-400'
+                                        ? 'bg-sky-400 w-10'
+                                        : 'bg-slate-400/40 w-3 hover:bg-slate-300/60'
                                         }`}
+                                    aria-label={`Slide ${index + 1}`}
                                 />
                             ))}
                         </div>
 
                         {/* Floating Elements */}
-                        <div className="absolute -top-4 -right-4 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg animate-float">
-                            <div className="text-2xl mb-2">💻</div>
-                            <div className="text-sm font-bold text-gray-800">Custom Software</div>
+                        <div className="absolute -top-6 -right-6 glass-panel px-5 py-4 animate-float">
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                    💻
+                                </div>
+                                <div>
+                                    <div className="text-sm font-semibold text-white">Custom Platforms</div>
+                                    <div className="text-xs text-slate-200/70">Built to scale with you</div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg animate-float animation-delay-1000">
-                            <div className="text-2xl mb-2">📱</div>
-                            <div className="text-sm font-bold text-gray-800">Mobile Apps</div>
+                        <div className="absolute -bottom-6 -left-6 glass-panel px-5 py-4 animate-float animation-delay-1000">
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 rounded-full bg-sky-500/20 flex items-center justify-center">
+                                    📱
+                                </div>
+                                <div>
+                                    <div className="text-sm font-semibold text-white">Mobile Experiences</div>
+                                    <div className="text-xs text-slate-200/70">Premium UI & UX</div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="absolute top-1/2 -right-6 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg animate-float animation-delay-2000">
-                            <div className="text-2xl mb-2">🔒</div>
-                            <div className="text-sm font-bold text-gray-800">Cybersecurity</div>
+                        <div className="absolute top-1/2 -right-10 glass-panel px-5 py-4 animate-float animation-delay-2000">
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                    🔒
+                                </div>
+                                <div>
+                                    <div className="text-sm font-semibold text-white">Cyber Defence</div>
+                                    <div className="text-xs text-slate-200/70">Audits & monitoring</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
