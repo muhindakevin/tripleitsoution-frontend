@@ -60,10 +60,10 @@ const Hero: React.FC = () => {
         <section id="home" className="min-h-screen bg-hero-gradient relative overflow-hidden flex items-center">
             {/* Decorative Background */}
             <div className="absolute inset-0">
-                <div className="grid-overlay absolute inset-0 opacity-15"></div>
-                <div className="absolute -top-20 -left-32 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-blue-500/25 to-blue-200/10 blur-3xl"></div>
-                <div className="absolute bottom-0 right-0 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-purple-500/20 to-pink-300/8 blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent blur-sm"></div>
+                <div className="grid-overlay absolute inset-0 opacity-[0.08]"></div>
+                <div className="absolute -top-24 -left-32 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-sky-500/15 to-sky-300/5 blur-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-[460px] h-[460px] rounded-full bg-gradient-to-br from-indigo-500/12 to-purple-400/6 blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent blur-sm"></div>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
