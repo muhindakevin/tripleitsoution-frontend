@@ -166,13 +166,13 @@ body {
   }
 
   .bg-hero-gradient {
-    background: linear-gradient(135deg, rgba(5, 10, 25, 0.6), rgba(15, 32, 65, 0.55));
+    background: linear-gradient(135deg, rgba(8, 23, 58, 0.92), rgba(5, 12, 32, 0.94));
   }
 
   .bg-section-gradient {
-    background: radial-gradient(circle at top left, rgba(63, 131, 248, 0.2), transparent 50%),
-      radial-gradient(circle at bottom right, rgba(192, 132, 252, 0.15), transparent 50%),
-      rgba(9, 14, 35, 0.8);
+    background: radial-gradient(circle at top left, rgba(63, 131, 248, 0.18), transparent 55%),
+      radial-gradient(circle at bottom right, rgba(192, 132, 252, 0.14), transparent 55%),
+      rgba(7, 12, 28, 0.92);
   }
 
   .transparency {

@@ -21,21 +21,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className={`${inter.className} antialiased min-h-screen flex flex-col relative`}>
-            <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
-            >
-                <source src="/bg.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
+        <div className={`${inter.className} antialiased min-h-screen flex flex-col relative bg-[#050b1d] text-white`}>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#08173a] via-[#050b1d] to-[#02040c]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(63,131,248,0.15),transparent_60%),radial-gradient(circle_at_bottom_right,rgba(167,139,250,0.12),transparent_55%)]" />
 
-            <div className="relative z-10 bg-slate-950/35 min-h-screen flex flex-col backdrop-blur-sm">
+            <div className="relative z-10 min-h-screen flex flex-col">
                 <Header />
-                <br/><br/>
+                <br /><br />
                 <main className="flex-grow">{children}</main>
                 <Footer />
             </div>
